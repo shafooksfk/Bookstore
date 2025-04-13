@@ -13,9 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: ./catalog-service
-      defaults:
-        run:
-          working-directory: ${{env.working-directory}}
 
     steps:
       - uses: actions/checkout@v4
@@ -27,5 +24,6 @@ jobs:
           cache: 'maven'
 
       - name: Build with Maven
-        run: ./mvnw -ntp verify
+        working-directory: ${{env.working-directory}}
+        run: ./mvnw verify
         
