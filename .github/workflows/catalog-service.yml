@@ -1,6 +1,7 @@
 name: Catalog Service
 
 on:
+  workflow_dispatch:  # Allows manual triggering
   push:
     paths:
       - 'catalog-service/**'
@@ -22,6 +23,10 @@ jobs:
           java-version: 21
           distribution: 'temurin'
           cache: 'maven'
+
+      - name: Make Maven Wrapper Executable
+        working-directory: ${{env.working-directory}}
+        run: chmod +x ./mvnw
 
       - name: Build with Maven
         working-directory: ${{env.working-directory}}
