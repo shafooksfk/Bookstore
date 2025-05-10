@@ -1,21 +1,27 @@
 package com.moshfk.catalog_service.domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.moshfk.catalog_service.ApplicationProperties;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
+@Service
+@Transactional
+@RequiredArgsConstructor
 class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    ProductRepository productRepository;
+    private final ProductRepository productRepository;
+    private final ApplicationProperties properties;
 
     @Override
     public PagedResult<ProductResponse> getAllProducts(int pageNo) {
         Sort sort = Sort.by("name").ascending();
         pageNo = pageNo <= 1 ? 0 : pageNo - 1;
-        Pageable pageable = PageRequest.of(pageNo, 10, sort);
+        Pageable pageable = PageRequest.of(pageNo, properties.pageSize(), sort);
         Page<ProductResponse> productsPage = productRepository.findAll(pageable).map(ProductMapper::toProductResponse);
 
         return new PagedResult<>(
