@@ -8,10 +8,9 @@ import static org.hamcrest.Matchers.is;
 import com.moshfk.catalog_service.AbstractIntegrationTest;
 import com.moshfk.catalog_service.domain.ProductResponse;
 import io.restassured.http.ContentType;
+import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.jdbc.Sql;
-
-import java.math.BigDecimal;
 
 @Sql("/test-data.sql")
 class ProductControllerTest extends AbstractIntegrationTest {
@@ -48,7 +47,8 @@ class ProductControllerTest extends AbstractIntegrationTest {
 
         assertThat(productResponse.code()).isEqualTo("P100");
         assertThat(productResponse.name()).isEqualTo("The Hunger Games");
-        assertThat(productResponse.description()).isEqualTo("Winning will make you famous, losing means certain death.");
+        assertThat(productResponse.description())
+                .isEqualTo("Winning will make you famous, losing means certain death.");
         assertThat(productResponse.price()).isEqualTo(new BigDecimal("34.00"));
     }
 

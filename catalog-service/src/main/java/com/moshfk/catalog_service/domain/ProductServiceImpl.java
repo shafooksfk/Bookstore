@@ -9,8 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -39,7 +37,8 @@ class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponse getProductByCode(String code) {
-        return productRepository.findByCode(code)
+        return productRepository
+                .findByCode(code)
                 .map(ProductMapper::toProductResponse)
                 .orElseThrow(() -> ProductNotFoundException.forCode(code));
     }
