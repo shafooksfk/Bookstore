@@ -1,13 +1,9 @@
 package com.moshfk.catalog_service;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
-
 
 class CatalogServiceApplicationTests extends AbstractIntegrationTest {
 
     @Test
-    void contextLoads() {
-    }
+    void contextLoads() {}
 }

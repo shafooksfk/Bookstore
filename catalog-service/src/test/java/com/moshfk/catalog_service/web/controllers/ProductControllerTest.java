@@ -1,13 +1,13 @@
 package com.moshfk.catalog_service.web.controllers;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+
 import com.moshfk.catalog_service.AbstractIntegrationTest;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.jdbc.Sql;
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
 
 @Sql("/test-data.sql")
 class ProductControllerTest extends AbstractIntegrationTest {
@@ -29,5 +29,4 @@ class ProductControllerTest extends AbstractIntegrationTest {
                 .body("hasNext", is(true))
                 .body("hasPrevious", is(false));
     }
-
 }
