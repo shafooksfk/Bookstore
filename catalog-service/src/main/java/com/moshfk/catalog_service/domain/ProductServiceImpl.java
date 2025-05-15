@@ -34,4 +34,12 @@ class ProductServiceImpl implements ProductService {
                 productsPage.hasNext(),
                 productsPage.hasPrevious());
     }
+
+    @Override
+    public ProductResponse getProductByCode(String code) {
+        return productRepository
+                .findByCode(code)
+                .map(ProductMapper::toProductResponse)
+                .orElseThrow(() -> ProductNotFoundException.forCode(code));
+    }
 }
