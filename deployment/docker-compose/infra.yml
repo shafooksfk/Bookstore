@@ -1,8 +1,7 @@
-version: "3.8"
 name: "bookstore"
 
 services:
-  bookstore:
+  catalog-db:
     image: postgres:16-alpine
     container_name: catalog-db
     environment:
@@ -12,10 +11,11 @@ services:
     ports:
       - "15432:5432"
     healthcheck:
-      test: ["CMD", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      test: [ "CMD-SHELL", "pg_isready -U postgres || exit 1" ]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
     deploy:
       resources:
         limits:
