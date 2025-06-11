@@ -25,8 +25,7 @@ jobs:
           cache: 'maven'
 
       - name: Make Maven Wrapper Executable
-        working-directory: ${{env.working-directory}}
-        run: chmod +x ./mvnw
+        run: chmod +x ${{env.working-directory}}/mvnw
 
       - name: Build with Maven
         working-directory: ${{env.working-directory}}
@@ -40,6 +39,7 @@ jobs:
 
 #      - if: ${{ github.ref == 'refs/head/main' }}
       - name: Build and Publish Docker Image
+        working-directory: ${{env.working-directory}}
         run: |
-          ./mvnw spring-boot: build-image -DskipTests
+          ./mvnw spring-boot:build-image -DskipTests
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/bookstore-catalog-service
